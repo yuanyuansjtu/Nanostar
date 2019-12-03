@@ -92,6 +92,7 @@ def check_rotation(img,theta,ox,oy,cap_width,cap_analyze_length):
     ax.add_patch(circ6)
     plt.imshow(dest, cmap="gray")
     plt.show()
+    return rest
 
 def check_up_downstream(dest,ox,oy,cap_width,cap_analyze_length):
     for y in np.arange(-int(cap_analyze_length/2),cap_analyze_length,10):
