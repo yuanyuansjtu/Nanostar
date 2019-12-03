@@ -4,6 +4,7 @@ import pandas as pd
 # from PIL import Image
 # from scipy.misc import imread
 from matplotlib.patches import Circle
+import pickle
 
 # Reference from this code
 # https://codereview.stackexchange.com/questions/41688/rotating-greyscale-images
