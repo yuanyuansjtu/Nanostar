@@ -195,3 +195,12 @@ def plot_temperature_profile(temp_inlet,temp_outlet,frame_steady_start,frame_ste
       tick.label.set_fontsize(fontsize = 10)
       tick.label.set_fontweight('bold')
     return np.mean(temp_outlet[frame_index]-temp_inlet[frame_index])
+
+
+def cal_laser_absorption(tube_width,flow_rate,temp_rise): # flow rate in ul/min
+    Aw = (tube_width-0.07/1000*2)*0.1/1000 # unit m2
+    Cp_water = 4200
+    rho_water = 998
+    mdot = flow_rate*10**(-6)/1000/60*rho_water
+    P = mdot*Cp_water*temp_rise
+    return P
