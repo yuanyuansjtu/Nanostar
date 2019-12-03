@@ -5,6 +5,7 @@ import pandas as pd
 # from scipy.misc import imread
 from matplotlib.patches import Circle
 import pickle
+import os
 
 # Reference from this code
 # https://codereview.stackexchange.com/questions/41688/rotating-greyscale-images
@@ -101,14 +102,8 @@ def check_up_downstream(dest,ox,oy,cap_width,cap_analyze_length):
     plt.show()
 
 def compute_inlet_outlet_temperature(file_name,directory_path,frame_steady_start,
-                                     frame_steady_end,y_offset_upsteam,y_offset_downsteam,cap_width):
-    #frame_steady_start = 80
-    #frame_steady_end = 688
+                                     frame_steady_end,ox,oy,y_offset_upsteam,y_offset_downsteam,cap_width):
 
-    #sys.path.insert(0, 'G://My Drive//Current Projects//Angstrom Method//Angstrom-method')
-
-    #directory_path = "C://Users//YuanYuan//Desktop//Amgstrom_method//"
-    #file_name = 'G_Rec-000074'
 
     file_path = directory_path+'temperature data//'+file_name+"//"
     dump_file_name = file_name+'.p'
@@ -124,18 +119,17 @@ def compute_inlet_outlet_temperature(file_name,directory_path,frame_steady_start
     else:
         list_file = os.listdir(file_path)  # dir is your directory path
         N_files = len(list_file)
-        N_frame_keep = frame_steady_end- frame_steady_start
+
         shape_single_frame = pd.read_csv(file_path + file_name+'_0.csv', header=None).shape # frame 0 must be there
         temp_full = np.zeros((shape_single_frame[0], shape_single_frame[1], N_files))
 
-        #frame_index = np.arange(frame_steady_start,frame_steady_end)
 
         for idx in range(N_files):
             temp = pd.read_csv(file_path + file_name+ '_' +str(idx) + '.csv', header=None).values.tolist()
             if np.shape(temp)[0] == 480 and np.shape(temp)[1] == 640:
                 temp_full[:, :, idx] = temp
             else:
-                print('The input file at index '+str(frame_idx) +' is illegal!')
+                print('The input file at index '+str(idx) +' is illegal!')
         pickle.dump(temp_full, open(dump_file_path, "wb"))
 
 
